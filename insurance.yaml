@@ -1,0 +1,199 @@
+openapi: 3.0.0
+info:
+  title: Customer Insurance API
+  version: "1.0.0"
+  description: API for retrieving insurance customer details, policy info, claims, and upsell recommendations.
+servers:
+- url: https://application-62.1yueecxs2ij7.us-south.codeengine.appdomain.cloud
+  description: Production server
+paths:
+  /customer/{customer_id}:
+    get:
+      summary: Get customer details
+      description: |2-
+
+        Get the customer details using customer id
+
+        :param name: The customer id
+        :returns: The customer existing insurance details like customer email, age, existing insurance policy id
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: cust-001
+      responses:
+        '200':
+          description: Customer details retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+
+  /customer/{customer_id}/policy:
+    get:
+      summary: Get customer policy
+      description: |2-
+
+        Get the customer existing insurance policy details
+
+        :param name: The customer id
+        :returns: The customer existing insurance details current premium, tenure,coverage, start date, end date
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: cust-001
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '404':
+          description: Customer not found
+
+  /claims/{customer_id}:
+    get:
+      summary: Get claims for a customer
+      description: |2-
+
+        Get the details of past claims made by customer
+
+        :param name: The customer id
+        :returns: the details of past claims made by customer, returns values like claim id, date, amount, status
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: cust-001
+      responses:
+        '200':
+          description: List of claims
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Claim'
+        '404':
+          description: Customer not found
+
+  /recommendations/{customer_id}:
+    get:
+      summary: Get upsell plan recommendations
+      description: |2-
+
+        Get the new insurance product recommendations
+
+        :param name: The customer id
+        :returns: new insurance products based on the customer profile
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: cust-001
+      responses:
+        '200':
+          description: List of recommended plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recommendation'
+        '404':
+          description: Customer not found
+
+components:
+  schemas:
+
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        name:
+          type: string
+        age:
+          type: integer
+        email:
+          type: string
+        policy_id:
+          type: string
+      example:
+        customer_id: cust-001
+        name: Alice Johnson
+        age: 32
+        email: alice.j@example.com
+        policy_id: pol-1001
+
+    Policy:
+      type: object
+      properties:
+        policy_id:
+          type: string
+        type:
+          type: string
+        coverage:
+          type: string
+        tenure:
+          type: integer
+        premium:
+          type: number
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+      example:
+        policy_id: pol-1001
+        type: Health
+        coverage: Standard
+        tenure: 3
+        premium: 12000
+        start_date: 2022-06-01
+        end_date: 2025-06-01
+
+    Claim:
+      type: object
+      properties:
+        claim_id:
+          type: string
+        date:
+          type: string
+          format: date
+        amount:
+          type: number
+        status:
+          type: string
+      example:
+        claim_id: clm-5001
+        date: 2023-02-15
+        amount: 3000
+        status: Approved
+
+    Recommendation:
+      type: object
+      properties:
+        plan_name:
+          type: string
+        premium:
+          type: number
+        description:
+          type: string
+      example:
+        plan_name: Critical Illness Cover
+        premium: 2000
+        description: Covers major illnesses like cancer, heart attack, etc.

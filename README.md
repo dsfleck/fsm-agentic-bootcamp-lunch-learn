@@ -15,7 +15,9 @@ Build and deploy an Agentic AI Application prototype for an enterprise use caseâ
 
 ### Instructions
 
-1.) Login to the link provided in your email with your credentials
-2.) Open the Hands-on Lab instructions [InsuranceAgent-Agentic-AI-Bootcamp-1.pdf](./InsuranceAgent-Agentic-AI-Bootcamp-1.pdf) and complete the lab
-* The OpenAPI spec referenced in the lab is located here : [insurance.yaml](./insurance.yaml)
-3.) When you have completed the lab think about and be prepared to discuss the manual processes within your role or organization where you could leverage Agentic AI
+1.) Login to the link provided in your email with your credentials <br>
+
+2.) Open the Hands-on Lab instructions [InsuranceAgent-Agentic-AI-Bootcamp-1.pdf](./InsuranceAgent-Agentic-AI-Bootcamp-1.pdf) and complete the lab <br>
+* The OpenAPI spec referenced in the lab is located here : [insurance.yaml](./insurance.yaml) <br>
+
+3.) When you have completed the lab think about and be prepared to discuss the manual processes within your role or organization where you could leverage Agentic AI <br>
